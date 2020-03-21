@@ -1,0 +1,55 @@
+
+service: serverless-chat
+
+provider:
+  name: aws
+  region: eu-west-1
+  runtime: python3.8
+  websocketApiName: serverless-chat-api
+  websocketApiRouteSelectionExpression: $request.body.action
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - "dynamodb:PutItem"
+        - "dynamodb:GetItem"
+        - "dynamodb:UpdateItem"
+        - "dynamodb:DeleteItem"
+        - "dynamodb:BatchGetItem"
+        - "dynamodb:BatchWriteItem"
+        - "dynamodb:Scan"
+        - "dynamodb:Query"
+        - "execute-api:ManageConnections"
+      Resource:
+        - "arn:aws:dynamodb:eu-west-1:*:*"
+        - "arn:aws:execute-api:*:*:**/@connections/*"
+
+
+functions:
+    connectionManager:
+        handler: connectionManager.connection_manager
+        events:
+            - websocket:
+                route: $connect
+            - websocket:
+                route: $disconnect
+    defaultMessage:
+        handler: handler.default_message
+        events:
+            - websocket:
+                route: $default
+    getRecentMessages:
+        handler: getRecentMessages.get_recent_messages
+        events:
+            - websocket:
+                route: getRecentMessages
+    sendMessage:
+        handler: sendMessage.send_message
+        events:
+            - websocket:
+                route: sendMessage
+    ping:
+        handler: handler.ping
+        events:
+            - http:
+                path: ping
+                method: get
