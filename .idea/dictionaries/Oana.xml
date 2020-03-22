@@ -2,6 +2,8 @@
   <dictionary name="Oana">
     <words>
       <w>dynamodb</w>
+      <w>onmessage</w>
+      <w>onopen</w>
     </words>
   </dictionary>
 </component>
