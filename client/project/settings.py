@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    'django-env.eba-pdcd8ptm.us-west-2.elasticbeanstalk.com'
+    'ChatDemo-env.eba-2wshzxn9.eu-west-1.elasticbeanstalk.com'
 ]
 
 
