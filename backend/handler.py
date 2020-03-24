@@ -1,6 +1,5 @@
 import boto3
 import logging
-import time
 import json
 
 logger = logging.getLogger("handler_logger")
